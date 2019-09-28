@@ -40,7 +40,7 @@ public class testController
         {
             //Driverı ekliyoruz.
             Class.forName("com.mysql.jdbc.Driver");     
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/reklam","root","2323");               
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/reklam","root","1234");               
             statement=(Statement) conn.createStatement();
             ResultSet rs=statement.executeQuery(query);
              while(rs.next())
@@ -83,99 +83,4 @@ public class testController
             statement =  conn.createStatement();
             ResultSet rs = statement.executeQuery(query);
             
-            if (nmb2 == 1) {
-                rs.next();
-                int likeSayisi = rs.getInt("likes");
-                likeSayisi++;
-                String quer = "update haber set likes =" + likeSayisi + " where haber_id=" + id;
-                statement.executeUpdate(quer);
-                return 2;
-            } 
-            else {
-                rs.next();
-                int dislikeSayisi = rs.getInt("dislikes");
-                dislikeSayisi++;
-                String queri = "update haber set dislikes =" + dislikeSayisi + "where haber_id=" + ıd;
-                statement.executeUpdate(queri);
-                System.out.println("BEGENMEMEEE SAYİSİİİİ "+dislikeSayisi);
-                return 3;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 1;
-    }
-    
-    @GET
-    @Path("/returncount")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String returncount()
-    {
-        Connection conn=null;
-        Statement statement=null;
-        String query="SELECT COUNT(*) FROM haber";
-        try
-        {
-            //Driverı ekliyoruz.
-            Class.forName("com.mysql.jdbc.Driver");     
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/haberler","root","2323");
-            int sayac = 0;
-            statement=(Statement) conn.createStatement();
-            ResultSet rs=statement.executeQuery(query);
-            
-            while (rs.next()) {
-                sayac=rs.getInt(1);
-                
-            }
-            return Integer.toString(sayac);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            return "aa";
-        }      
-    }
-    
-    @GET
-    @Path("/newnews/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<testModel> newnews(@PathParam("id") String id) {
-        ArrayList<testModel> tmm = new ArrayList<>();
-        Connection conn ;
-        Statement statement ;
-        int ıd = Integer.valueOf(id);
-        String query = "select * from haber where haber_id>" + id;
-        try {
-            
-            Class.forName("com.mysql.jdbc.Driver"); 
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/haberler","root","2323");
-
-            statement =  conn.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next())
-                {
-            testModel tm=new testModel();
-            tm.setHaber_id(rs.getString("haber_id"));
-            tm.setHaber_resim(rs.getString("haber_resmi"));
-            tm.setHaber_baslik(rs.getString("haber_baslik"));
-            tm.setHaber_icerik(rs.getString("haber_icerik"));
-            tm.setHaber_turu(rs.getString("haber_tur"));
-            tm.setTarih(rs.getString("tarih"));
-            tm.setLikes(rs.getInt("likes"));
-            tm.setDislike(rs.getInt("dislikes"));
-            tm.setGöruntuleme(rs.getInt("goruntuleme"));
-            tmm.add(tm);
-        }
-        return tmm;
-    
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        return null;
-    }
-
-}
-
-    
-
+            if 
